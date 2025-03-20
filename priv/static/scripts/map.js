@@ -32,7 +32,7 @@ var m = maplibregl;
 var map = new m.Map({
   container: "map",
   style: "https://demotiles.maplibre.org/style.json",
-  center: [30.5, 50.5],
+  center: [1.131057475965207, 8.556351936524663],
   zoom: 5,
 });
 
@@ -42,7 +42,7 @@ map.addControl(
     visualizeRoll: true,
     showZoom: true,
     showCompass: true,
-  })
+  }),
 );
 
 map.on("click", (data) => {
