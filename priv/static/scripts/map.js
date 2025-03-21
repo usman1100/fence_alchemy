@@ -36,32 +36,32 @@ var map = new m.Map({
   zoom: 5,
 });
 
-map.addControl(
-  new m.NavigationControl({
-    visualizePitch: true,
-    visualizeRoll: true,
-    showZoom: true,
-    showCompass: true,
-  }),
-);
+// map.addControl(
+//   new m.NavigationControl({
+//     visualizePitch: true,
+//     visualizeRoll: true,
+//     showZoom: true,
+//     showCompass: true,
+//   }),
+// );
 
-map.on("click", (data) => {
-  const lng = data.lngLat.lng;
-  const lat = data.lngLat.lat;
-  const color = getRandomColor();
+// map.on("click", (data) => {
+//   const lng = data.lngLat.lng;
+//   const lat = data.lngLat.lat;
+//   const color = getRandomColor();
 
-  const marker = new m.Marker({
-    color,
-  }).setLngLat([lng, lat]);
+//   const marker = new m.Marker({
+//     color,
+//   }).setLngLat([lng, lat]);
 
-  markers.push(marker);
-  drawMarkers(markers);
-});
+//   markers.push(marker);
+//   drawMarkers(markers);
+// });
 
-let markers = [];
+// let markers = [];
 
-const drawMarkers = (list) => {
-  list.forEach((item) => {
-    item.addTo(map);
-  });
-};
+// const drawMarkers = (list) => {
+//   list.forEach((item) => {
+//     item.addTo(map);
+//   });
+// };

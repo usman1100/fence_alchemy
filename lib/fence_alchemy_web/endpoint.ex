@@ -11,6 +11,10 @@ defmodule FenceAlchemyWeb.Endpoint do
     same_site: "Lax"
   ]
 
+  socket "/socket", FenceAlchemyWeb.UserSocket,
+     websocket: true,
+     longpoll: false
+
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]],
     longpoll: [connect_info: [session: @session_options]]
