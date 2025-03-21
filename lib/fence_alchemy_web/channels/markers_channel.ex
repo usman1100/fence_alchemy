@@ -1,34 +1,27 @@
 defmodule FenceAlchemyWeb.MarkersChannel do
+  alias FenceAlchemyWeb.Store.MarkerStore
+  alias FenceAlchemyWeb.Marker
   use FenceAlchemyWeb, :channel
 
   @impl true
   def join("markers:all", _payload, socket) do
-    # markers = Agent.get(:markers_store, & &1)
-    {:ok, socket}
+    markers = MarkerStore.get_all()
+    {:ok, %{markers: markers}, socket}
   end
 
+  @impl true
   def handle_in("markers:new", payload, socket) do
-    broadcast(socket, "markers:new", payload)
+    new_marker = %Marker{
+      id: Enum.random(1000..9999),
+      lng: payload["lng"],
+      lat: payload["lat"]
+    }
+
+    MarkerStore.add(new_marker)
+
+    all_markers = MarkerStore.get_all()
+
+    broadcast(socket, "markers:new", %{markers: all_markers})
     {:noreply, socket}
-  end
-
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-  @impl true
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
-  end
-
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (markers:lobby).
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
-    {:noreply, socket}
-  end
-
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
   end
 end

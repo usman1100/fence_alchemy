@@ -8,6 +8,7 @@ defmodule FenceAlchemy.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      FenceAlchemyWeb.Store.MarkerStore,
       FenceAlchemyWeb.Telemetry,
       FenceAlchemy.Repo,
       {DNSCluster, query: Application.get_env(:fence_alchemy, :dns_cluster_query) || :ignore},
