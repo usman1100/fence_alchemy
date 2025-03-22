@@ -1,3 +1,39 @@
+let socket = new window.PhoenixSocket("/socket", { params: { token: window.userToken } });
+
+let markers = [];
+
+const reDrawMarkers = (new_markers) => {
+  markers.forEach((marker) => {
+    marker.remove();
+  });
+
+  markers = new_markers.map((item) =>
+    new maplibregl.Marker().setLngLat([item.lng, item.lat]),
+  );
+
+  markers.forEach((marker) => {
+    marker.addTo(map);
+  });
+};
+
+socket.connect();
+
+let channel = socket.channel("markers:all", {});
+channel
+  .join()
+  .receive("ok", (resp) => {
+    reDrawMarkers(resp.markers);
+    console.log("Joined successfully", resp);
+  })
+  .receive("error", (resp) => {
+    console.log("Unable to join", resp);
+  });
+
+channel.on("markers:new", (resp) => {
+  reDrawMarkers(resp.markers);
+});
+
+
 const getRandomColor = () => {
   const colors = [
     "#FF6633",
@@ -26,6 +62,15 @@ var map = new m.Map({
   style: "https://demotiles.maplibre.org/style.json",
   center: [1.131057475965207, 8.556351936524663],
   zoom: 5,
+});
+
+map.on("click", (event) => {
+  const lat = event.lngLat.lat;
+  const lng = event.lngLat.lng;
+  channel.push("markers:new", {
+    lat,
+    lng,
+  });
 });
 
 map.addControl(
