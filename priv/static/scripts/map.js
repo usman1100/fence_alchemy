@@ -19,14 +19,6 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-const clearMarkers = () => {
-  markers.forEach((marker) => {
-    marker.remove();
-  });
-  markers = [];
-  drawMarkers(markers);
-};
-
 var m = maplibregl;
 
 var map = new m.Map({
@@ -36,32 +28,11 @@ var map = new m.Map({
   zoom: 5,
 });
 
-// map.addControl(
-//   new m.NavigationControl({
-//     visualizePitch: true,
-//     visualizeRoll: true,
-//     showZoom: true,
-//     showCompass: true,
-//   }),
-// );
-
-// map.on("click", (data) => {
-//   const lng = data.lngLat.lng;
-//   const lat = data.lngLat.lat;
-//   const color = getRandomColor();
-
-//   const marker = new m.Marker({
-//     color,
-//   }).setLngLat([lng, lat]);
-
-//   markers.push(marker);
-//   drawMarkers(markers);
-// });
-
-// let markers = [];
-
-// const drawMarkers = (list) => {
-//   list.forEach((item) => {
-//     item.addTo(map);
-//   });
-// };
+map.addControl(
+  new m.NavigationControl({
+    visualizePitch: true,
+    visualizeRoll: true,
+    showZoom: true,
+    showCompass: true,
+  }),
+);
