@@ -3,6 +3,6 @@ defmodule FenceAlchemyWeb.PageController do
 
   def home(conn, _params) do
     zoom = 5
-    conn |> put_layout(html: :page) |> render(:home, zoom: zoom)
+    conn |> put_layout(html: :app) |> render(:home, zoom: zoom)
   end
 end
