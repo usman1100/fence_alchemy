@@ -1,4 +1,11 @@
-<div id="map" class="w-full h-[90vh]"></div>
-
+<div class="flex gap-4">
+  <div id="map" class="w-full h-[90vh]"></div>
+  <div class="w-1/4">
+    Sidebar
+    <div>
+      {Phoenix.Component.live_render(@conn, FenceAlchemyWeb.Live.Counter, id: "counter")}
+    </div>
+  </div>
+</div>
 <script type="module" src={~p"/scripts/map.js"}>
 </script>
